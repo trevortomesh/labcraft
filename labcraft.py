@@ -11,6 +11,8 @@ brick_texture = load_texture('assets/brick_block.png')
 dirt_texture  = load_texture('assets/dirt_block.png')
 sky_texture   = load_texture('assets/skybox.png')
 arm_texture   = load_texture('assets/arm_texture.png')
+acc_texture   = load_texture('assets/acc_block.png')
+mc_brick      = load_texture('assets/mc_brick.png')
 punch_sound   = Audio('assets/punch_sound',loop = False, autoplay = False)
 block_pick = 1
 
@@ -71,7 +73,7 @@ class Voxel(Button):
                 if block_pick == 2: voxel = Voxel(position = self.position + mouse.normal, texture = stone_texture)
                 if block_pick == 3: voxel = Voxel(position = self.position + mouse.normal, texture = brick_texture)
                 if block_pick == 4: voxel = Voxel(position = self.position + mouse.normal, texture = dirt_texture)
-                if block_pick == 5: voxel = Sim(position = self.position + mouse.normal, texture = grass_texture)
+                if block_pick == 5: voxel = Sim(position = self.position + mouse.normal, texture = acc_texture)
 
             if key == 'right mouse down':
                 punch_sound.play()
@@ -102,6 +104,19 @@ class Hand(Entity):
     def passive(self):
         self.position = Vec2(0.4,-0.6)
 
+class pendulum(Entity):
+    def __init__(self,rotation=(0,0,0), texture = mc_brick):
+        super().__init__(
+            parent = scene,
+            texture = mc_brick,
+            model = 'assets/pendulum',
+            scale = 1,
+            rotation = Vec3(0,0,0),
+            position = Vec3(5,1,5))
+    def update(self):
+       # self.t += time.dt
+        self.rotation += Vec3(0.5,0,0)
+
 def terrainGen():
     for z in range(20):
         for x in range(20):
@@ -109,7 +124,7 @@ def terrainGen():
 
 
 class Sim(Button):
-    def __init__(self, position = (0,0,0), texture = grass_texture):
+    def __init__(self, position = (0,0,0), texture = acc_texture):
         super().__init__(
             parent = scene,
             position = position,
@@ -120,30 +135,23 @@ class Sim(Button):
             scale = 0.5)
 
 
-        self.cube = Entity(model="cube", color=color.red)
+        self.cube = Entity(model="cube", color=color.red, scale=0.2)
         self.t = 0.0
 
     def update(self):
         self.t += time.dt
-        self.cube.x += math.cos(self.t)
+        self.cube.x = math.cos(self.t) + self.position.x
         self.cube.y = self.position.y
-        self.cube.z = self.position.z
+        self.cube.z = math.sin(self.t) + self.position.z
         if self.hovered and held_keys['right mouse']:
             destroy(self.cube)
             destroy(self)
-
-
-
-
-
-#sim = Sim()
-
 
 terrainGen()
 
 player = FirstPersonController()
 sky = Sky()
 hand = Hand()
-
+pendulum()
 
 app.run()
