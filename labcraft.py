@@ -73,7 +73,7 @@ class Voxel(Button):
                 if block_pick == 2: voxel = Voxel(position = self.position + mouse.normal, texture = stone_texture)
                 if block_pick == 3: voxel = Voxel(position = self.position + mouse.normal, texture = brick_texture)
                 if block_pick == 4: voxel = Voxel(position = self.position + mouse.normal, texture = dirt_texture)
-                if block_pick == 5: voxel = Sim(position = self.position + mouse.normal, texture = acc_texture)
+                if block_pick == 5: voxel = OscBlock(position = self.position + mouse.normal, texture = acc_texture)
 
             if key == 'right mouse down':
                 punch_sound.play()
@@ -104,18 +104,23 @@ class Hand(Entity):
     def passive(self):
         self.position = Vec2(0.4,-0.6)
 
+
 class pendulum(Entity):
     def __init__(self,rotation=(0,0,0), texture = mc_brick):
         super().__init__(
             parent = scene,
             texture = mc_brick,
             model = 'assets/pendulum',
-            scale = 1,
+            color = color.gray,
+            scale = .3,
             rotation = Vec3(0,0,0),
-            position = Vec3(5,1,5))
+            position = Vec3(5,2.5,5))
     def update(self):
        # self.t += time.dt
         self.rotation += Vec3(0.5,0,0)
+
+
+
 
 def terrainGen():
     for z in range(20):
@@ -123,7 +128,9 @@ def terrainGen():
             voxel = Voxel(position = (x,0,z))
 
 
-class Sim(Button):
+
+
+class OscBlock(Button):
     def __init__(self, position = (0,0,0), texture = acc_texture):
         super().__init__(
             parent = scene,
@@ -146,6 +153,7 @@ class Sim(Button):
         if self.hovered and held_keys['right mouse']:
             destroy(self.cube)
             destroy(self)
+
 
 terrainGen()
 
