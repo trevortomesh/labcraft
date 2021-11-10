@@ -21,19 +21,19 @@ python3 labcraft.py
 ```
 
 ## Manifest:
-- README.md
+- README.md:
   The file you are currently reading.
 
-- labcrafy.py
+- labcrafy.py:
   The main labcraft code.
 
-- assetTest.py
+- assetTest.py:
   A little script to test new models and textures.
 
-- sims.py
+- sims.py:
   Methods that control the various simulations in the world. Might change
   this later as there becomes more simulations.
 
-- assets
+- assets:
   Folder that contains all of the models, textures and audio files.
-  
+
