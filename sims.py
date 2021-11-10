@@ -1,10 +1,11 @@
 from ursina import *
 
 def oscSim(self):
-    self.t += time.dt
-    self.planet.x = math.cos(self.t) + self.position.x
-    self.planet.y = self.position.y
-    self.planet.z = math.sin(self.t) + self.position.z
+    self.t += time.dt * self.sliders[3].value
+    self.planet.x = (math.cos(self.t) + self.position.x) * self.sliders[0].value
+    self.planet.y = self.position.y * self.sliders[1].value
+    self.planet.z = (math.sin(self.t) + self.position.z) * self.sliders[2].value
+    #print(self.sliders[0].value)
 
 def simple_pendulum(self):
     self.pendulum.x = self.position.x + 0.7

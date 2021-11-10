@@ -156,15 +156,22 @@ class solarSystem(Button):
         # problem: when a second solarSystem block is generated, it doesn't create a new slider
         # it just adds a second dot to the existing one
 
-        sliders = list()
-        sliderX = ThinSlider(text="Star Scale", min=0, max=5, default=0.5, x=-.65, y=(0.4*.75), step=0.1, dynamic=True)
+        self.sliders = list()
+        sliderX = ThinSlider(text="X Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75), step=0.1, dynamic=True)
         sliderX.scale *= .75
-        sliderX.setattr = (self,'scale')
-        sliderY = ThinSlider(text="Planet Scale", min=0, max=5, default=0.1, x=-.65, y=(0.4*.75) - .05, step=0.1, dynamic=True)
+        sliderX.bg = Entity(parent=self, model=Quad(scale=(.525, Text.size), radius=Text.size/2, segments=3),
+        origin_x=-0.25, collider='box', color=color.black66)
+        sliderY = ThinSlider(text="Y Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75) - .05, step=0.1, dynamic=True)
         sliderY.scale *= .75
-        sliderY.setattr = (self.planet, 'scale')
-        sliders.append(sliderX)
-        sliders.append(sliderY)
+        sliderZ = ThinSlider(text="Z Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75) - .1, step=0.1, dynamic=True)
+        sliderZ.scale *= .75
+        sliderA = ThinSlider(text="SPEED", min=0, max=100, default=1, x=-.65, y=(0.4*.75) - .15, step=1, dynamic=True)
+        sliderA.scale *= .75
+        self.sliders = list()
+        self.sliders.append(sliderX)
+        self.sliders.append(sliderY)
+        self.sliders.append(sliderZ)
+        self.sliders.append(sliderA)
 
     def update(self):
         oscSim(self)
