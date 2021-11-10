@@ -1,6 +1,9 @@
 # labcraft
 A Digital Physics Lab in a Blocky Voxel World
 
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
+
 ## Dependencies:
 Labcraft uses python 3.6:
 ```bash
