@@ -41,6 +41,9 @@ def update():
     if held_keys['4']: block_pick = 4
     if held_keys['5']: block_pick = 5
     if held_keys['6']: block_pick = 6
+    
+    # escape keypress will breakout mouse control from first person view
+    if held_keys['escape']: mouse.locked = False
  
 
     
@@ -147,6 +150,21 @@ class solarSystem(Button):
 
         self.planet = Entity(model="assets/block", scale= 0.1, texture = earth_texture)
         self.t = 0.0
+
+        # basic sliders for controlling parameters (parameters in update function get overridden by the update math)..
+        # could introduce a multiplier that defaults to one and is controlled by the slider ?
+        # problem: when a second solarSystem block is generated, it doesn't create a new slider
+        # it just adds a second dot to the existing one
+
+        sliders = list()
+        sliderX = ThinSlider(text="Star Scale", min=0, max=5, default=0.5, x=-.65, y=(0.4*.75), step=0.1, dynamic=True)
+        sliderX.scale *= .75
+        sliderX.setattr = (self,'scale')
+        sliderY = ThinSlider(text="Planet Scale", min=0, max=5, default=0.1, x=-.65, y=(0.4*.75) - .05, step=0.1, dynamic=True)
+        sliderY.scale *= .75
+        sliderY.setattr = (self.planet, 'scale')
+        sliders.append(sliderX)
+        sliders.append(sliderY)
 
     def update(self):
         oscSim(self)
