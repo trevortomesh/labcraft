@@ -1,6 +1,7 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from sims import *
+from util import * 
 
 window.borderless = False
 
@@ -44,6 +45,8 @@ def update():
     
     # escape keypress will breakout mouse control from first person view
     if held_keys['escape']: mouse.locked = False
+    # ` keypress will return first person mouse lock
+    if held_keys['`']: mouse.locked = True
  
 
     
@@ -151,31 +154,12 @@ class solarSystem(Button):
         self.planet = Entity(model="assets/block", scale= 0.1, texture = earth_texture)
         self.t = 0.0
 
-        # basic sliders for controlling parameters (parameters in update function get overridden by the update math)..
-        # could introduce a multiplier that defaults to one and is controlled by the slider ?
-        # problem: when a second solarSystem block is generated, it doesn't create a new slider
-        # it just adds a second dot to the existing one
-
-        self.sliders = list()
-        sliderX = ThinSlider(text="X Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75), step=0.1, dynamic=True)
-        sliderX.scale *= .75
-        sliderX.bg = Entity(parent=self, model=Quad(scale=(.525, Text.size), radius=Text.size/2, segments=3),
-        origin_x=-0.25, collider='box', color=color.black66)
-        sliderY = ThinSlider(text="Y Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75) - .05, step=0.1, dynamic=True)
-        sliderY.scale *= .75
-        sliderZ = ThinSlider(text="Z Position", min=0, max=5, default=1, x=-.65, y=(0.4*.75) - .1, step=0.1, dynamic=True)
-        sliderZ.scale *= .75
-        sliderA = ThinSlider(text="SPEED", min=0, max=100, default=1, x=-.65, y=(0.4*.75) - .15, step=1, dynamic=True)
-        sliderA.scale *= .75
-        self.sliders = list()
-        self.sliders.append(sliderX)
-        self.sliders.append(sliderY)
-        self.sliders.append(sliderZ)
-        self.sliders.append(sliderA)
+        initSolarSystemSliders(self)      
 
     def update(self):
         oscSim(self)
         if self.hovered and held_keys['right mouse']:
+            destroySliders(self)
             destroy(self.planet)
             destroy(self)
 
