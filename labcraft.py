@@ -167,23 +167,23 @@ class solarSystem(Button):
             destroy(self)
 
 class Ball(Entity):
-    def __init__(self, position = (0, 0, 0)):
+    def __init__(self, position = (0, 0, 0), yOffset = (0, 10, 0)):
         super().__init__(
             parent = scene,
-            position = position,
+            #position = position,
+            position = position + yOffset,
             model = 'sphere',
             collider = 'sphere',
-            origin_y = 0.5,
             #texture = 'circle',
             color = color.red,
             scale = 1.0)
         
     
     def update(self):
-        direction = (1, 0, 0)   # (x, y, z) direction vector 3
+        direction = (0, -1, 0)   # (x, y, z) direction vector 3
         hit_info = raycast(self.position, direction, ignore=(self,), distance=0.5, debug=True)
         if not hit_info.hit:
-            self.x += 1.0 * time.dt
+            self.y += -2 * time.dt
 
 
 
