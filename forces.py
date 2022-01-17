@@ -8,3 +8,8 @@ def applyGravity(entity):
     if not check_for_collision_below:
         # TODO: GRAVITY should work by modulating a veloctiy, not a position..
         entity.y += GRAVITY * time.dt
+
+def checkForPushing(pusher, pushed):
+    check_for_collision_between = raycast(pusher.position, pusher.direction, ignore=(pusher,), distance=0.5)
+    if check_for_collision_between:
+        pushed.direction += pusher.direction * pusher.velocity * time.dt
