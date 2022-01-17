@@ -2,6 +2,7 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from sims import *
 from util import * 
+from forces import *
 
 window.borderless = False
 
@@ -167,11 +168,12 @@ class solarSystem(Button):
             destroy(self)
 
 class Ball(Entity):
-    def __init__(self, position = (0, 0, 0), yOffset = (0, 10, 0)):
+    def __init__(self, position = (0, 0, 0), yOffset = (0, 10, 0), direction = (0, 0, 0)):
         super().__init__(
             parent = scene,
             #position = position,
             position = position + yOffset,
+            direction = direction,
             model = 'sphere',
             collider = 'sphere',
             #texture = 'circle',
@@ -180,10 +182,7 @@ class Ball(Entity):
         
     
     def update(self):
-        direction = (0, -1, 0)   # (x, y, z) direction vector 3
-        hit_info = raycast(self.position, direction, ignore=(self,), distance=0.5, debug=True)
-        if not hit_info.hit:
-            self.y += -2 * time.dt
+        applyGravity(self)
 
 
 
