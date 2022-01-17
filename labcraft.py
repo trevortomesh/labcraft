@@ -172,11 +172,18 @@ class Ball(Entity):
             parent = scene,
             position = position,
             model = 'sphere',
+            collider = 'sphere',
             origin_y = 0.5,
             #texture = 'circle',
             color = color.red,
             scale = 1.0)
-
+        
+    
+    def update(self):
+        direction = (1, 0, 0)   # (x, y, z) direction vector 3
+        hit_info = raycast(self.position, direction, ignore=(self,), distance=0.5, debug=True)
+        if not hit_info.hit:
+            self.x += 1.0 * time.dt
 
 
 
