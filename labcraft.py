@@ -42,6 +42,7 @@ def update():
     if held_keys['4']: block_pick = 4
     if held_keys['5']: block_pick = 5
     if held_keys['6']: block_pick = 6
+    if held_keys['7']: block_pick = 7
     
     # escape keypress will breakout mouse control from first person view
     if held_keys['escape']: mouse.locked = False
@@ -87,6 +88,8 @@ class Voxel(Button):
                 if block_pick == 4: voxel = Voxel(position = self.position + mouse.normal, texture = dirt_texture)
                 if block_pick == 5: voxel = solarSystem(position = self.position + mouse.normal, texture = sun_texture)
                 if block_pick == 6: voxel = pendulum(position = self.position+mouse.normal, texture = pendulum_texture)
+                if block_pick == 7: ball = Ball(position = self.position + mouse.normal)
+
             if key == 'right mouse down':
                 punch_sound.play()
                 destroy(self)
@@ -162,6 +165,18 @@ class solarSystem(Button):
             destroySliders(self)
             destroy(self.planet)
             destroy(self)
+
+class Ball(Entity):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(
+            parent = scene,
+            position = position,
+            model = 'sphere',
+            origin_y = 0.5,
+            #texture = 'circle',
+            color = color.red,
+            scale = 1.0)
+
 
 
 
