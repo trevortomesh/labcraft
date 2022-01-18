@@ -1,5 +1,6 @@
 from ursina import *
 from sims import *
+import json
 
 # draws slider UI component for variables in solar system model
 def initSolarSystemSliders(self):
@@ -29,3 +30,32 @@ def initSolarSystemSliders(self):
 def destroySliders(self):
     for slider in self.sliders:
         destroy(slider)
+
+
+def save(data):
+    print('attempting to save game')
+    try:
+        os.mkdir("./save")
+    except OSError as error:
+        print(error)
+
+    file = open("./save/saveFile.json", "w")
+    #file.write(json.dumps(dict(data), indent=4, separators=(",", " = ")))
+    print('Data is type: ' + str(type(data)))
+    print(data)
+    file.write(json.dumps(data, indent=0))
+    file.close()
+
+
+def readSceneData():
+    itemID = 0
+    save_data = {}
+    for e in scene.entities:
+        save_data[str(itemID) + e.name] = e.__dict__
+        print(e.name)
+        print(e.__dict__)
+        itemID += 1
+        #print('\n')
+    print(save_data)
+    print(type(save_data))
+    return save_data

@@ -9,6 +9,8 @@ def applyGravity(entity):
         # TODO: GRAVITY should work by modulating a veloctiy, not a position..
         entity.y += GRAVITY * time.dt
 
+
+# below function not yet implemented for anything -- the thought is to allow the player ("pusher") to push an object
 def checkForPushing(pusher, pushed):
     check_for_collision_between = raycast(pusher.position, pusher.direction, ignore=(pusher,), distance=0.5)
     if check_for_collision_between:

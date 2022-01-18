@@ -1,8 +1,13 @@
+from asyncore import read
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from sims import *
 from util import * 
 from forces import *
+
+import json
+
+save_data = {}
 
 window.borderless = False
 
@@ -29,6 +34,8 @@ window.exit_button.visible = False
 debug = False
 
 def update():
+
+    
     global block_pick
     global debug
 
@@ -44,6 +51,7 @@ def update():
     if held_keys['5']: block_pick = 5
     if held_keys['6']: block_pick = 6
     if held_keys['7']: block_pick = 7
+
     
     # escape keypress will breakout mouse control from first person view
     if held_keys['escape']: mouse.locked = False
@@ -66,6 +74,9 @@ def update():
         player.y = 1
         player.x = 1
         player.z = 1
+    
+    #save_data['playerPosition'] = player.get_position()
+    if held_keys['enter']: save(readSceneData())
 
 class Voxel(Button):
     def __init__(self, position = (0,0,0), texture = grass_texture):
