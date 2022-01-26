@@ -193,7 +193,8 @@ class Ball(Entity):
         
     
     def update(self):
-        applyGravity(self)
+        if held_keys['g']:
+            applyGravity(self)
 
 
 
@@ -202,9 +203,31 @@ def terrainGen():
         for x in range(20):
             voxel = Voxel(position = (x,0,z))
 
+def treeGen():
+    for y in range(5):
+        voxel = Voxel(position = (5, y, 5))
+    
+    for z in range(4, 7):
+        for x in range(4, 7):
+            voxel = Voxel(position = (x, 5, z))
+    
+    for z in range(3, 8):
+        for x in range(3, 8):
+            voxel = Voxel(position = (x, 6, z))
+    for z in range(3, 8):
+        for x in range(3, 8):
+            voxel = Voxel(position = (x, 7, z))
+    
+    for z in range(4, 7):
+        for x in range(4, 7):
+            voxel = Voxel(position = (x, 8, z))
+    
+    apple = Ball((7, 5, 3), (0, 0, 0))
+
 
 
 terrainGen()
+treeGen()
 
 player = FirstPersonController()
 sky = Sky()
