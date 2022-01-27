@@ -1,6 +1,6 @@
 from ursina import *
 
-GRAVITY = -9.8
+GRAVITY = (-9.8/2)
 
 def applyGravity(entity):
     # Checks if entity is currently colliding with anything below itself, if NOT then it applies gravity

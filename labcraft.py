@@ -193,8 +193,29 @@ class Ball(Entity):
         
     
     def update(self):
+        #if held_keys['g']:
+        applyGravity(self)
+
+class Apple(Entity):
+    def __init__(self, position = (0, 0, 0), yOffset = (0, 10, 0), direction = (0, 0, 0)):
+        super().__init__(
+            parent = scene,
+            #position = position,
+            position = position + yOffset,
+            direction = direction,
+            model = 'sphere',
+            collider = 'sphere',
+            #texture = 'circle',
+            color = color.red,
+            scale = 0.65,
+            dataFrameCounter = 0)
+        
+    
+    def update(self):
         if held_keys['g']:
+            writeExpDataToFile(outputFile, self.position.y, self.dataFrameCounter)
             applyGravity(self)
+            self.dataFrameCounter += 1
 
 
 
@@ -204,25 +225,25 @@ def terrainGen():
             voxel = Voxel(position = (x,0,z))
 
 def treeGen():
-    for y in range(5):
+    for y in range(8):
         voxel = Voxel(position = (5, y, 5))
-    
-    for z in range(4, 7):
-        for x in range(4, 7):
-            voxel = Voxel(position = (x, 5, z))
-    
-    for z in range(3, 8):
-        for x in range(3, 8):
-            voxel = Voxel(position = (x, 6, z))
-    for z in range(3, 8):
-        for x in range(3, 8):
-            voxel = Voxel(position = (x, 7, z))
     
     for z in range(4, 7):
         for x in range(4, 7):
             voxel = Voxel(position = (x, 8, z))
     
-    apple = Ball((7, 5, 3), (0, 0, 0))
+    for z in range(3, 8):
+        for x in range(3, 8):
+            voxel = Voxel(position = (x, 9, z))
+    for z in range(3, 8):
+        for x in range(3, 8):
+            voxel = Voxel(position = (x, 10, z))
+    
+    for z in range(4, 7):
+        for x in range(4, 7):
+            voxel = Voxel(position = (x, 11, z))
+    
+    apple = Apple((7, 8, 3), (0, 0, 0))
 
 
 
@@ -233,5 +254,7 @@ player = FirstPersonController()
 sky = Sky()
 hand = Hand()
 # pendulum()
+
+outputFile = createOrOpenDataFile()
 
 app.run()

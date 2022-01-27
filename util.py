@@ -59,3 +59,27 @@ def readSceneData():
     print(save_data)
     print(type(save_data))
     return save_data
+
+# called once to open output data file, creates it if necessary.
+# should rewrite all existing data if it already exists (?) - need test
+def createOrOpenDataFile():
+    print('writing data to file...')
+    try:
+        os.mkdir("./data")
+    except OSError as error:
+        print(error)
+    
+    file = open("./data/output.txt", "w")
+    return file
+
+
+# called each frame to write the experiment data to output file.
+def writeExpDataToFile(outputFile, applePos, deltaT):
+
+    ## should write the position of the apple and the delta time each frame
+    outputFile.write(str(deltaT) + "\t" + str(applePos) + "\n")
+
+# called once experiment is completed, to clean up file IO
+def closeExpDataFile(outputFile):
+
+    outputFile.close()
