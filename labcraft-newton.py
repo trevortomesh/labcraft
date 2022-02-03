@@ -133,6 +133,13 @@ class Apple(Entity):
         #   experiment data to an output file.
         if held_keys['g']:
             # TODO: Third argument passed should be frameCounter * deltaTime.
+            # Fix:  Multiply the deltaTime each frame by the total number of 
+            #       frames that pass since the start of the experiment.
+            #       This shows the total time taken over the course of the sim.
+            # Status: Not yet implemented.
+            # Currently:
+            #   On each update, the data written to the file is as follows:
+            #   {dataFrameCounter}      {apple y position}
             writeExpDataToFile(outputFile, self.position.y, self.dataFrameCounter)
             applyGravity(self)
             self.dataFrameCounter += 1
@@ -148,6 +155,9 @@ def terrainGen():
 
 # treeGen function generates the tree.
 def treeGen():
+    # TODO: Condense these loops to reduce some repitition in the codebase.
+    # Currently:
+    #   Functions but is hella ugly.  The tree should be shorter, perhaps.
     for y in range(8):
         voxel = Voxel(position = (5, y, 5), texture = tree_texture)
     
