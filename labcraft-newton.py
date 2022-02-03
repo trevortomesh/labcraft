@@ -126,24 +126,25 @@ class Apple(Entity):
         #       for the intended duration of the simulation by initializing
         #       the loop and then escaping the loop when the apple height 
         #       reaches the y value of the ground (0).
-        # Status: Not yet implemented.
         # Currently:
         #   On each update, the apple listens for a keypress.
         #   Key: g will trigger the gravity simulation and write the
         #   experiment data to an output file.
+        # Status: Not yet implemented.
         if held_keys['g']:
             # TODO: Third argument passed should be frameCounter * deltaTime.
             # Fix:  Multiply the deltaTime each frame by the total number of 
             #       frames that pass since the start of the experiment.
             #       This shows the total time taken over the course of the sim.
-            # Status: Not yet implemented.
             # Currently:
             #   On each update, the data written to the file is as follows:
-            #   {dataFrameCounter}      {apple y position}
-            writeExpDataToFile(outputFile, self.position.y, self.dataFrameCounter)
+            #   {simTime}      {apple y position}
+            #   simTime is rounded to 4 decimal places.
+            # Status: DONE.
+            simTime = round((self.dataFrameCounter * time.dt), 4)
+            writeExpDataToFile(outputFile, self.position.y, simTime)
             applyGravity(self)
             self.dataFrameCounter += 1
-
 
 # terrainGen function generates the platform.
 def terrainGen():
