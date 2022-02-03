@@ -18,7 +18,9 @@ def simple_pendulum(self):
 
 def applyGravity(entity):
     # Checks if entity is currently colliding with anything below itself, if NOT then it applies gravity
-    check_for_collision_below = raycast(entity.position, (0, -0.65, 0), ignore=(entity,), distance=0.5)
+    #   - uses entity.scale as a parameter for the ground collision ... 
+    #       - may want to adjust to enemy.height 
+    check_for_collision_below = raycast(entity.position, (0, -1 * entity.scale.y, 0), ignore=(entity,), distance=0.5)
     if not check_for_collision_below:
         # TODO: GRAVITY should work by modulating a veloctiy, not a position..
         entity.y += GRAVITY * time.dt
