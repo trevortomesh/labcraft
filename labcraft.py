@@ -24,6 +24,7 @@ earth_texture = load_texture('assets/earth_block.png')
 mc_brick      = load_texture('assets/mc_brick.png')
 sun_texture   = load_texture('assets/sun.png')
 tree_texture  = load_texture('assets/trunk_block2.png')
+leaf_texture  = load_texture('assets/leaf_block.png')
 pendulum_texture = load_texture('assets/mc_brick.png')
 
 punch_sound   = Audio('assets/punch_sound',loop = False, autoplay = False)
@@ -231,18 +232,18 @@ def treeGen():
     
     for z in range(4, 7):
         for x in range(4, 7):
-            voxel = Voxel(position = (x, 8, z))
+            voxel = Voxel(position = (x, 8, z), texture = leaf_texture)
     
     for z in range(3, 8):
         for x in range(3, 8):
-            voxel = Voxel(position = (x, 9, z))
+            voxel = Voxel(position = (x, 9, z), texture = leaf_texture)
     for z in range(3, 8):
         for x in range(3, 8):
-            voxel = Voxel(position = (x, 10, z))
+            voxel = Voxel(position = (x, 10, z), texture = leaf_texture)
     
     for z in range(4, 7):
         for x in range(4, 7):
-            voxel = Voxel(position = (x, 11, z))
+            voxel = Voxel(position = (x, 11, z), texture = leaf_texture)
     
     apple = Apple((7, 8, 3), (0, 0, 0))
 
