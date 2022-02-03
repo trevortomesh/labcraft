@@ -118,9 +118,19 @@ class Apple(Entity):
         
     
     def update(self):
-        # On each update, the apple listens for a keypress.
-        # Key: g will trigger the gravity simulation and write the
-        # experiment data to an output file.
+        # TODO: Reorganize architecture s.t. experiment doesn't stop
+        #       prematurely.  Currently, if you let go of the keypress
+        #       partway through the drop, it will stop and the sim.
+        #       will not run to completion.
+        # Fix:  Likely can use a sentinel variable to run a while loop
+        #       for the intended duration of the simulation by initializing
+        #       the loop and then escaping the loop when the apple height 
+        #       reaches the y value of the ground (0).
+        # Status: Not yet implemented.
+        # Currently:
+        #   On each update, the apple listens for a keypress.
+        #   Key: g will trigger the gravity simulation and write the
+        #   experiment data to an output file.
         if held_keys['g']:
             # TODO: Third argument passed should be frameCounter * deltaTime.
             writeExpDataToFile(outputFile, self.position.y, self.dataFrameCounter)
