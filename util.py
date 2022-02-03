@@ -76,7 +76,9 @@ def createOrOpenDataFile():
 # called each frame to write the experiment data to output file.
 def writeExpDataToFile(outputFile, applePos, deltaT):
 
-    ## should write the position of the apple and the delta time each frame
+    # Should write the position of the apple and the delta time each frame
+    # Currently, writes a frame counter instead of delta time.
+    # TODO: Fix caller s.t. third argument is frameCounter * deltaT.
     outputFile.write(str(deltaT) + "\t" + str(applePos) + "\n")
 
 # called once experiment is completed, to clean up file IO
