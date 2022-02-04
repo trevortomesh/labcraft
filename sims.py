@@ -1,6 +1,7 @@
 from ursina import *
 
 # Sets a constant value for gravity ( -y ).
+# Halved here in order to draw out the simulation.
 GRAVITY = (-9.8/2)
 
 def oscSim(self):
@@ -19,7 +20,7 @@ def simple_pendulum(self):
 def applyGravity(entity):
     # Checks if entity is currently colliding with anything below itself, if NOT then it applies gravity
     #   - uses entity.scale as a parameter for the ground collision ... 
-    #       - may want to adjust to enemy.height 
+    #       - TODO: adjust to entity.height somehow...
     check_for_collision_below = raycast(entity.position, (0, -1 * entity.scale.y, 0), ignore=(entity,), distance=0.5)
     if not check_for_collision_below:
         # TODO: GRAVITY should work by modulating a veloctiy, not a position..
