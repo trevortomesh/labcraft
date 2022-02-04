@@ -40,3 +40,13 @@ python3 labcraft.py
 - assets:
   Folder that contains all of the models, textures and audio files.
 
+## Todo List:
+
+ Load and Save
+- Multiplayer (?)
+- CSV exporting
+- Rewrite exercises from schoology
+- Add proper exit protocol
+- Windows Documentation
+- Linux Documentation
+- Mac Documentation (?)
